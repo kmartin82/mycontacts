@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 
@@ -14,6 +16,7 @@ public class ContactFragment extends Fragment {
     private Contact mContact;
     private EditText mNameField;
     private EditText mEmailField;
+    private CheckBox mFavorite;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,14 @@ public class ContactFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 // No new behavior
+            }
+        });
+
+        mFavorite = (CheckBox)v.findViewById(R.id.contact_favorite);
+        mFavorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mContact.setFavorite(isChecked);
             }
         });
         return v;

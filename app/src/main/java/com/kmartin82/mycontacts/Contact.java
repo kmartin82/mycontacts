@@ -7,6 +7,19 @@ public class Contact {
     private UUID mID;
     private String mname;
     private String memail;
+    private boolean mFavorite;
+
+    public boolean isFavorite() {
+        return mFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        mFavorite = favorite;
+    }
+
+    public void setID(UUID ID) {
+        mID = ID;
+    }
 
     public Contact(){
         mID = UUID.randomUUID();
@@ -14,11 +27,11 @@ public class Contact {
 
 
     public void setMname(String mname) {
-        this.mname = mname;
+        mname = mname;
     }
 
     public void setMemail(String memail) {
-        this.memail = memail;
+        memail = memail;
     }
 
     public UUID getID() {
