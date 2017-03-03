@@ -27,11 +27,11 @@ public class Contact {
 
 
     public void setMname(String mname) {
-        mname = mname;
+        this.mname = mname;
     }
 
     public void setMemail(String memail) {
-        memail = memail;
+        this.memail = memail;
     }
 
     public UUID getID() {
