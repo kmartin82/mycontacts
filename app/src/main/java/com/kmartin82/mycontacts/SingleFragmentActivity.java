@@ -5,10 +5,10 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 
 
-
-public abstract class SingleFragmentActivity extends FragmentActivity {
+public abstract class SingleFragmentActivity extends AppCompatActivity {
     public String getPackage(Context context) {
         return context.getPackageName();
     }

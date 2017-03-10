@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/new_contacts"
+          android:id="@+id/coreate_contact"
+          android:icon="@android:drawable/ic_menu_add"
+          app:showAsAction="ifRoom"/>
+    <item android:title="@string/show_favorites"
+          android:id="@+id/menu_item_toggle_favorites"/>
+</menu>

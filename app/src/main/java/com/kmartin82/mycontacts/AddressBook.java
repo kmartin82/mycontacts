@@ -43,6 +43,15 @@ public class AddressBook {
         }
         return null;
     }
+    public List<Contact> GetFavoriteContacts(){
+        List<Contact> favorites = new ArrayList<>();
+        for (Contact aContact: mContacts){
+            if (aContact.isFavorite()){
+             favorites.add(aContact);
+            }
+        }
+        return favorites;
+    }
 
 
 
