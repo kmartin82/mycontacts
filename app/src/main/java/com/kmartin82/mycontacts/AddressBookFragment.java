@@ -12,9 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -107,7 +105,7 @@ public class AddressBookFragment extends Fragment {
         }
         public void bindContact(Contact contact){
             mContact = contact;
-            mContactNameTextView.setText(mContact.getMname());
+            mContactNameTextView.setText(mContact.getmName());
         }
 
         @Override

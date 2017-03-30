@@ -15,8 +15,8 @@ public class ContactTest {
     public void contactNameTest() {
         String name = "testname";
         Contact contact = new Contact();
-        contact.setMname(name);
-        assertEquals(name, contact.getMname());
+        contact.setmName(name);
+        assertEquals(name, contact.getmName());
 
 
     }
@@ -25,8 +25,8 @@ public class ContactTest {
     public void contactEmailTest() {
         String email = "test@testweb.net";
         Contact contact = new Contact();
-        contact.setMname(email);
-        assertEquals(email, contact.getMname());
+        contact.setmName(email);
+        assertEquals(email, contact.getmName());
     }
 
     @Test

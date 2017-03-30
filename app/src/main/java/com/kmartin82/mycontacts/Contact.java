@@ -5,9 +5,14 @@ import java.util.UUID;
 
 public class Contact {
     private UUID mID;
-    private String mname;
-    private String memail;
+    private String mName;
+    private String mEmail;
     private boolean mFavorite;
+    private String mAddress;
+
+    public Contact(){
+        mID = UUID.randomUUID();
+    }
 
     public boolean isFavorite() {
         return mFavorite;
@@ -21,28 +26,30 @@ public class Contact {
         mID = ID;
     }
 
-    public Contact(){
-        mID = UUID.randomUUID();
+
+
+
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-
-    public void setMname(String mname) {
-        this.mname = mname;
-    }
-
-    public void setMemail(String memail) {
-        this.memail = memail;
+    public void setmEmail(String mEmail) {
+        this.mEmail = mEmail;
     }
 
     public UUID getID() {
         return mID;
     }
 
-    public String getMname() {
-        return mname;
+    public String getmName() {
+        return mName;
     }
 
-    public String getMemail() {
-        return memail;
+    public String getmEmail() {
+        return mEmail;
     }
+
+    public String getAddress() { return mAddress; }
+
+    public void setAddress(String mAddress) { this.mAddress = mAddress; }
 }

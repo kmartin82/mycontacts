@@ -10,13 +10,14 @@ public class AddressBook {
 
     private AddressBook(){
         mContacts = new ArrayList<>();
-        for (int i=0; i<100; i++) {
+        for (int i = 1; i <= 5; i++) {
             Contact contact = new Contact();
-            contact.setMname("Person " + i);
-            contact.setMemail("Person" + i + "@email.com");
+            contact.setmName("Person " + i);
+            contact.setmEmail("Person" + i + "@email.com");
+            contact.setAddress("5723 beechwood ct hilliard OH 43026");
 
             // set every 10th as a favorite
-            if (i % 10 == 0) {
+            if (i % 5 == 0) {
                 contact.setFavorite(true);
             }
 
