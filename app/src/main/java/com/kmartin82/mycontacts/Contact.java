@@ -1,6 +1,8 @@
 package com.kmartin82.mycontacts;
 
 
+import android.graphics.Bitmap;
+
 import java.util.UUID;
 
 public class Contact {
@@ -9,6 +11,15 @@ public class Contact {
     private String mEmail;
     private boolean mFavorite;
     private String mAddress;
+    private Bitmap mImage;
+
+    public void setmImage(Bitmap mImage) {
+        this.mImage = mImage;
+    }
+
+    public Bitmap getmImage() {
+        return mImage;
+    }
 
     public Contact(){
         mID = UUID.randomUUID();

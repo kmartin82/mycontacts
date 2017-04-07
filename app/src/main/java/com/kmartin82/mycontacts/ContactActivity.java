@@ -12,6 +12,8 @@ import java.util.UUID;
 public class ContactActivity extends SingleFragmentActivity {
     private static final String EXTRA_CONTACT_ID = "com.kevinmartin.mycontacts.contact_ID";
 
+
+
     public static Intent newIntent(Context context, UUID contactID){
         Intent intent = new Intent(context, ContactActivity.class);
         intent.putExtra(EXTRA_CONTACT_ID, contactID);

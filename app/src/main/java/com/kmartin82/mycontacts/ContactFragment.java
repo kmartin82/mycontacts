@@ -1,17 +1,27 @@
 package com.kmartin82.mycontacts;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,17 +34,21 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import static android.R.id.list;
+import static android.app.Activity.RESULT_OK;
 
 
 public class ContactFragment extends Fragment {
     private static final String ARG_CONT_ID = "contact ID";
+    private static final int REQUEST_IMAGE_CAPTURED = 1;
     private Contact mContact;
     private EditText mNameField;
     private EditText mEmailField;
     private CheckBox mFavorite;
     private EditText mAddessField;
     private MapView mMapView;
+    private ImageView mImageView;
+
+
 
     public static  ContactFragment newInstance(UUID contactID){
         ContactFragment contactFragment = new ContactFragment();
@@ -49,6 +63,41 @@ public class ContactFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UUID contactID = (UUID) getArguments().getSerializable(ARG_CONT_ID);
         mContact = AddressBook.get().getContact(contactID);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_contact, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_item_send_email:
+                if (mContact.getmEmail() == null){
+                    return true;
+                }
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:"));
+                String[] addresses = {mContact.getmEmail()};
+                intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+                ComponentName emailApp = intent.resolveActivity(getContext().getPackageManager());
+                ComponentName unsupportedAction = ComponentName.unflattenFromString("com.android.fallback/.Fallback");
+                if (emailApp != null && !emailApp.equals(unsupportedAction)){
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getContext(), R.string.email_app_error, Toast.LENGTH_SHORT).show();
+                }
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+
+
     }
 
     @Override
@@ -132,12 +181,38 @@ public class ContactFragment extends Fragment {
             }
         });
 
+        mImageView = (ImageView) v.findViewById(R.id.contact_image);
+        if (mContact.getmImage() != null){
+            mImageView.setImageBitmap(mContact.getmImage());
+        }
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getContext().getPackageManager()) != null) {
+                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURED);
+                }
+            }
+        });
+
 
         mMapView = (MapView) v.findViewById(R.id.contact_map);
         mMapView.onCreate(savedInstanceState);
         UpdateMap();
         return v;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURED && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mContact.setmImage(imageBitmap);
+            mImageView.setImageBitmap(imageBitmap);
+        }
+    }
+
     private void UpdateMap(){
 
         mMapView.getMapAsync(new OnMapReadyCallback() {

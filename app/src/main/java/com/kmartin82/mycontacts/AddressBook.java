@@ -14,7 +14,7 @@ public class AddressBook {
             Contact contact = new Contact();
             contact.setmName("Person " + i);
             contact.setmEmail("Person" + i + "@email.com");
-            contact.setAddress("5723 beechwood ct hilliard OH 43026");
+            contact.setAddress("550 E. Spring St, Columbus, OH 43215");
 
             // set every 10th as a favorite
             if (i % 5 == 0) {
