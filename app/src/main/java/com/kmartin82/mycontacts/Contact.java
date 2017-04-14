@@ -13,16 +13,20 @@ public class Contact {
     private String mAddress;
     private Bitmap mImage;
 
+    public Contact(){
+        mID = UUID.randomUUID();
+    }
+
+    public Contact(UUID id){
+        mID = id;
+    }
+
     public void setmImage(Bitmap mImage) {
         this.mImage = mImage;
     }
 
     public Bitmap getmImage() {
         return mImage;
-    }
-
-    public Contact(){
-        mID = UUID.randomUUID();
     }
 
     public boolean isFavorite() {
@@ -36,9 +40,6 @@ public class Contact {
     public void setID(UUID ID) {
         mID = ID;
     }
-
-
-
 
     public void setmName(String mName) {
         this.mName = mName;

@@ -45,11 +45,11 @@ public class AddressBookFragment extends Fragment {
                 if (mShowFavoritesOnly) {
                     item.setTitle(R.string.show_all);
                     mContactAdapter.mContacts =
-                            AddressBook.get().GetFavoriteContacts();
+                            AddressBook.get(getContext()).GetFavoriteContacts();
                 } else {
                     item.setTitle(R.string.show_favorites);
                     mContactAdapter.mContacts =
-                            AddressBook.get().getContacts();
+                            AddressBook.get(getContext()).getContacts();
                 }
                 mContactAdapter.notifyDataSetChanged();
                 return true;
@@ -80,13 +80,14 @@ public class AddressBookFragment extends Fragment {
     }
 
     private void UpdateUi(){
-        AddressBook addressBook = AddressBook.get();
+        AddressBook addressBook = AddressBook.get(getContext());
         List<Contact> contacts = addressBook.getContacts();
         if (mContactAdapter == null){
             mContactAdapter = new ContactAdapter(contacts);
             mAddressBookRecyclerView.setAdapter(mContactAdapter);
         }
         else {
+            mContactAdapter.setContacts(contacts);
             mContactAdapter.notifyDataSetChanged();
         }
         mContactAdapter = new ContactAdapter(contacts);
@@ -121,6 +122,9 @@ public class AddressBookFragment extends Fragment {
         public ContactAdapter(List<Contact> contacts){
             mContacts = contacts;
 
+        }
+        public void setContacts(List<Contact> contacts) {
+            mContacts = contacts;
         }
         @Override
         public ContactHolder onCreateViewHolder(ViewGroup parent, int viewType) {

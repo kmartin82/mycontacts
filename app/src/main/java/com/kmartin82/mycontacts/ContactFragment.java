@@ -62,7 +62,7 @@ public class ContactFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID contactID = (UUID) getArguments().getSerializable(ARG_CONT_ID);
-        mContact = AddressBook.get().getContact(contactID);
+        mContact = AddressBook.get(getContext()).getContact(contactID);
         setHasOptionsMenu(true);
     }
 
@@ -247,6 +247,7 @@ public class ContactFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        AddressBook.get(getContext()).updateContact(mContact);
         mMapView.onPause();
     }
 

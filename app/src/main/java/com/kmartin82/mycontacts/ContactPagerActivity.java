@@ -33,7 +33,7 @@ public class ContactPagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact_pager);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_contact_pager_view_pager);
-        mContacts = AddressBook.get().getContacts();
+        mContacts = AddressBook.get(getBaseContext()).getContacts();
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
