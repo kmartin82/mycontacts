@@ -13,7 +13,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContactPagerActivity">
+        <activity android:name=".ContactPagerActivity"
+            android:parentActivityName=".AddressBookActivity">
+        </activity>
+        <activity android:name=".SettingsActivity"
+            android:parentActivityName=".AddressBookActivity">
         </activity>
         <activity android:name=".AddressBookActivity">
             <intent-filter>

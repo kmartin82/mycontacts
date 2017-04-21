@@ -37,8 +37,11 @@ public class AddressBookFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.coreate_contact:
-                // we'll add this later
+            case R.id.create_contact:
+                Contact contact = new Contact();
+                AddressBook.get(getContext()).add(contact);
+                Intent intent = ContactPagerActivity.newIntent(getActivity(), contact.getID());
+                startActivity(intent);
                 return true;
             case R.id.menu_item_toggle_favorites:
                 mShowFavoritesOnly = !mShowFavoritesOnly;
@@ -53,22 +56,25 @@ public class AddressBookFragment extends Fragment {
                 }
                 mContactAdapter.notifyDataSetChanged();
                 return true;
+            case R.id.menu_item_settings:
+                Intent settingIntent = new Intent(getContext(), SettingsActivity.class);
+                startActivity(settingIntent);
                 default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_address_book, container,
-                    false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_address_book, container,
+                false);
 
-            mAddressBookRecyclerView =
+        mAddressBookRecyclerView =
                     (RecyclerView) view.findViewById(R.id.address_book_recycler_view);
-            mAddressBookRecyclerView.setLayoutManager(
+        mAddressBookRecyclerView.setLayoutManager(
                     new LinearLayoutManager(getActivity()));
-            UpdateUi();
+        new SyncData(getContext()).execute();
+        UpdateUi();
 
             return view;
         }
@@ -116,6 +122,12 @@ public class AddressBookFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        new SyncData(getContext()).execute();
+    }
+
     private class ContactAdapter extends RecyclerView.Adapter<ContactHolder>{
         private List<Contact> mContacts;
 
@@ -138,6 +150,8 @@ public class AddressBookFragment extends Fragment {
             Contact contact = mContacts.get(position);
             holder.bindContact(contact);
         }
+
+
 
         @Override
         public int getItemCount() {

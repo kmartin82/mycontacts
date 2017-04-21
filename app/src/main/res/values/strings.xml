@@ -9,4 +9,9 @@
     <string name="addresshint">Address</string>
     <string name="send_email">Send Email</string>
     <string name="email_app_error">no email app configured</string>
+    <string name="settings_sync_category">Sync Settings</string>
+    <string name="settings_sync_server">Server Address</string>
+    <string name="settings_sync_username">Username</string>
+    <string name="settings_sync_password">Password</string>
+    <string name="settings">settings</string>
 </resources>

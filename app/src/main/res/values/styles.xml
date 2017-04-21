@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
     <style name="BigBoldStyle">
         <item name="android:textSize">20sp</item>

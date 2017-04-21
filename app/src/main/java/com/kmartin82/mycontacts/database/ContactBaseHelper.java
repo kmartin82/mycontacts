@@ -15,7 +15,7 @@ public class ContactBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE" + ContactDbSchema.ContactTable.NAME + "( " +
+        String sql = "CREATE TABLE " + ContactDbSchema.ContactTable.NAME + "( " +
                 "_id integer primary key autoincrement, " +
                 ContactDbSchema.ContactTable.Cols.UUID + ", " +
                 ContactDbSchema.ContactTable.Cols.NAME + ", " +
