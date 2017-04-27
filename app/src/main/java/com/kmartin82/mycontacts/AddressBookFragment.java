@@ -1,5 +1,6 @@
 package com.kmartin82.mycontacts;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,23 @@ public class AddressBookFragment extends Fragment {
     private RecyclerView mAddressBookRecyclerView;
     private ContactAdapter mContactAdapter;
     private boolean mShowFavoritesOnly = false;
+    private CallBacks mCallbacks;
+
+    public interface CallBacks{
+        void onContactSelected(Contact contact);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (CallBacks) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -40,8 +58,7 @@ public class AddressBookFragment extends Fragment {
             case R.id.create_contact:
                 Contact contact = new Contact();
                 AddressBook.get(getContext()).add(contact);
-                Intent intent = ContactPagerActivity.newIntent(getActivity(), contact.getID());
-                startActivity(intent);
+                mCallbacks.onContactSelected(contact);
                 return true;
             case R.id.menu_item_toggle_favorites:
                 mShowFavoritesOnly = !mShowFavoritesOnly;
@@ -85,7 +102,7 @@ public class AddressBookFragment extends Fragment {
         UpdateUi();
     }
 
-    private void UpdateUi(){
+     void UpdateUi(){
         AddressBook addressBook = AddressBook.get(getContext());
         List<Contact> contacts = addressBook.getContacts();
         if (mContactAdapter == null){
@@ -117,8 +134,7 @@ public class AddressBookFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = ContactPagerActivity.newIntent(getActivity(), mContact.getID());
-            startActivity(intent);
+            mCallbacks.onContactSelected(mContact);
         }
     }
 
